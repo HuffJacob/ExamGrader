@@ -16,7 +16,7 @@ int main()
 	string gradesArr[25];
 	
 	getline(dataFile, answerKey);
-	cout << answerKey << endl;
+	cout << "Answer key: " << answerKey << "\n\n";
 
 	cout << left << setw(25) << "Student Name" << left << setw(37) << "Answers" << "Score" << endl;
 
@@ -25,34 +25,57 @@ int main()
 	{
 		namesArr[i] = names;
 		gradesArr[i] = grades;
-		cout << left << setw(25) << namesArr[i]; // put later in for loop w scores
-		cout << left << setw(37) << gradesArr[i] << endl;
 		i++;
 	}
 
+	string errorName[25];
+	string errorQuestion[25];
+	int errorQuestionNum[25];
+	int l = 0;
+
+	int numCorrect;
+	int score[25];
+	const char* questionArr;
 	const char* answerArr;
 	answerArr = answerKey.c_str();
-
-	const char* questionArr;
 
 	for (int j = 0; j < 25; j++)
 	{
 		questionArr = gradesArr[j].c_str(); // for i = 0-24, put gradesArr[i] into questionArr and compare
+		numCorrect = 0;
 
 		for (int k = 0; k < 30; k++)
 		{
-			//compare here
+			if (questionArr[k] == 'T' || questionArr[k] == 'F')
+			{
+				if (questionArr[k] == answerArr[k])
+				{
+					numCorrect++;
+				}
+			}
+			else
+			{
+				errorName[l] = namesArr[j];
+				errorQuestion[l] = questionArr[k];
+				errorQuestionNum[l] = k + 1;
+				l++;
+			}
 		}
 
-		cout << endl;
+		score[j] = numCorrect;
+		
+		cout << left << setw(25) << namesArr[j];
+		cout << left << setw(37) << gradesArr[j];
+		cout << score[j] << endl;
 	}
 
-
-
-	/*
-	for (int k = 0; k < 30; k++)
+	// Bad data checking
+	cout << "\nErrors:\n";
+	for (int m = 0; m < l; m++)
 	{
-		for loop for comparing each letter
+		cout << "\"" << errorQuestion[m] << "\" detected as answer for " << errorName[m]
+			 << " on question " << errorQuestionNum[m] << endl;
 	}
-	*/
+
+	return 0;
 }
