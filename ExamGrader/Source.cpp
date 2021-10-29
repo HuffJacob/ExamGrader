@@ -41,7 +41,7 @@ int main()
 
 	for (int j = 0; j < 25; j++)
 	{
-		questionArr = gradesArr[j].c_str(); // for i = 0-24, put gradesArr[i] into questionArr and compare
+		questionArr = gradesArr[j].c_str();
 		numCorrect = 0;
 
 		for (int k = 0; k < 30; k++)
